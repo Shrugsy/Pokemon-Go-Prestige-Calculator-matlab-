@@ -25,7 +25,7 @@ for i = 1:numDefeated
         prestGain(i) = 250 * defAttRatio(i);
     elseif (0 < defAttRatio(i)) & (defAttRatio(i) < 1)
         %disp('0 < def att ratio < 1');
-        prestGain(i) = 500*(2 - defAttRatio(i));
+        prestGain(i) = 50*(2 - defAttRatio(i));
     else
         disp('def/att ratio outside allowed range');
     end
