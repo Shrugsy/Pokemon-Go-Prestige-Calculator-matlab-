@@ -1,5 +1,5 @@
 
-clc;
+%clc;
 clear;
 close all;
 
@@ -17,19 +17,22 @@ end
 %%
 for i = 1:numDefeated
 
-    if 2 <= defAttRatio(i)
-        %disp('2 <= def att ratio');
-        prestGain(i) = 500;
-    elseif (1 <= defAttRatio(i)) & (defAttRatio(i) < 2)
-        %disp('1 <= def att ratio <= 2');
+    if aHCP > defCP(i)
+        prestGain(i) = 155 * defAttRatio(i) - 27;
+        if prestGain(i) < 50;
+            prestGain(i) = 50;
+        end
+                
+    elseif defCP(i) >= aHCP
         prestGain(i) = 250 * defAttRatio(i);
-    elseif (0 < defAttRatio(i)) & (defAttRatio(i) < 1)
-        %disp('0 < def att ratio < 1');
-        prestGain(i) = 50*(2 - defAttRatio(i));
+        if prestGain(i) > 500;
+            prestGain(i) = 500;
+        end
+        
     else
         disp('def/att ratio outside allowed range');
     end
-end
+    end
 
 totPrestGain = sum(prestGain, 'native');
 totPrestGainInt = int32(totPrestGain);
